@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الإسعافات الأولية</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:   #0A1628;
+  --navy2:  #112240;
+  --slate:  #1E3A5F;
+  --crimson:#C0392B;
+  --crimson-light: #FDECEA;
+  --amber:  #B7540A;
+  --amber-light: #FEF3E8;
+  --teal:   #0B5394;
+  --teal-light: #E8F0FA;
+  --sage:   #1A6B3C;
+  --sage-light: #EAF5EF;
+  --white:  #FFFFFF;
+  --off:    #F7F8FA;
+  --border: #DDE3EC;
+  --text:   #1A2535;
+  --muted:  #5A6B80;
+  --line:   #E4E9F0;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Tajawal', sans-serif;
+  background: var(--off);
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* HEADER */
+.header {
+  background: var(--navy);
+  position: relative;
+  overflow: hidden;
+}
+.header-inner {
+  display: grid;
+  grid-template-columns: 6px 1fr;
+  align-items: stretch;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.header-accent { background: var(--crimson); }
+.header-content {
+  padding: 2.4rem 2rem 2.4rem 2.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.header-logo { display: flex; align-items: center; gap: 1rem; }
+.cross-badge {
+  width: 52px; height: 52px;
+  background: var(--crimson);
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.header-titles h1 {
+  font-size: 1.7rem; font-weight: 800;
+  color: var(--white); letter-spacing: -0.3px; line-height: 1.2;
+}
+.header-titles p { font-size: 0.85rem; color: #7A96B8; margin-top: 0.2rem; }
+.meta-tag {
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase; color: #4A7AAF;
+  border: 1px solid #1E3A5F; padding: 0.35rem 0.9rem; border-radius: 4px;
+}
+
+/* NAV */
+.nav-bar {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 1px 8px rgba(10,22,40,0.07);
+}
+.nav-inner {
+  max-width: 1200px; margin: 0 auto;
+  padding: 0 2rem; display: flex;
+}
+.nav-btn {
+  display: flex; align-items: center; gap: 0.7rem;
+  padding: 1rem 1.6rem;
+  border: none; background: transparent;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 0.95rem; font-weight: 700;
+  color: var(--muted); cursor: pointer;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -1px;
+  transition: color 0.2s, border-color 0.2s;
+  white-space: nowrap;
+}
+.nav-btn .ni { width:20px; height:20px; opacity:.45; transition:opacity .2s; flex-shrink:0; }
+.nav-btn:hover { color: var(--text); }
+.nav-btn:hover .ni { opacity:.7; }
+.nav-btn.active .ni { opacity:1; }
+.nav-btn[data-c="crimson"].active { border-bottom-color:var(--crimson); color:var(--crimson); }
+.nav-btn[data-c="amber"].active   { border-bottom-color:var(--amber);   color:var(--amber); }
+.nav-btn[data-c="teal"].active    { border-bottom-color:var(--teal);    color:var(--teal); }
+.nav-btn[data-c="sage"].active    { border-bottom-color:var(--sage);    color:var(--sage); }
+
+/* CONTENT */
+.content { max-width:1200px; margin:0 auto; padding:2.5rem 2rem 3rem; }
+.panel { display:none; }
+.panel.active {
+  display:block;
+  animation: rise .35s cubic-bezier(.22,1,.36,1);
+}
+@keyframes rise {
+  from { opacity:0; transform:translateY(16px); }
+  to   { opacity:1; transform:none; }
+}
+
+/* PANEL HEADER */
+.panel-header {
+  display:flex; align-items:flex-start; gap:1.5rem;
+  margin-bottom:2rem; padding-bottom:2rem;
+  border-bottom:1px solid var(--line);
+}
+.picon {
+  width:64px; height:64px; border-radius:16px;
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
+}
+.picon svg { width:32px; height:32px; }
+.bg-c { background:var(--crimson-light); } .str-c svg { stroke:var(--crimson); }
+.bg-a { background:var(--amber-light); }  .str-a svg { stroke:var(--amber); }
+.bg-t { background:var(--teal-light); }   .str-t svg { stroke:var(--teal); }
+.bg-s { background:var(--sage-light); }   .str-s svg { stroke:var(--sage); }
+
+.ptitle .tag {
+  display:inline-block; font-size:.7rem; font-weight:700;
+  letter-spacing:1px; text-transform:uppercase;
+  padding:.25rem .7rem; border-radius:4px; margin-bottom:.5rem;
+}
+.tag-c { background:var(--crimson-light); color:var(--crimson); }
+.tag-a { background:var(--amber-light);   color:var(--amber); }
+.tag-t { background:var(--teal-light);    color:var(--teal); }
+.tag-s { background:var(--sage-light);    color:var(--sage); }
+.ptitle h2 { font-size:1.6rem; font-weight:800; color:var(--navy); line-height:1.2; }
+.ptitle .sub { font-size:.9rem; color:var(--muted); margin-top:.3rem; font-weight:400; }
+
+/* STEPS */
+.steps-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+  gap:1px; background:var(--border);
+  border:1px solid var(--border); border-radius:16px; overflow:hidden;
+}
+.step {
+  background:var(--white); padding:1.6rem;
+  display:flex; gap:1.1rem; align-items:flex-start;
+  transition:background .15s;
+}
+.step:hover { background:#FAFBFC; }
+.snum {
+  font-size:.7rem; font-weight:800; letter-spacing:1px;
+  width:28px; height:28px; border-radius:8px;
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0; margin-top:1px;
+}
+.sn-c { background:var(--crimson-light); color:var(--crimson); }
+.sn-a { background:var(--amber-light);   color:var(--amber); }
+.sn-t { background:var(--teal-light);    color:var(--teal); }
+.sn-s { background:var(--sage-light);    color:var(--sage); }
+.sbody h3 { font-size:.95rem; font-weight:700; color:var(--navy); margin-bottom:.35rem; line-height:1.3; }
+.sbody p  { font-size:.85rem; color:var(--muted); line-height:1.75; }
+
+/* ALERT */
+.alert {
+  margin-top:1.2rem; border-radius:12px;
+  padding:1.1rem 1.4rem;
+  display:flex; align-items:flex-start; gap:1rem;
+  font-size:.875rem; font-weight:500; line-height:1.7;
+}
+.alert svg { width:20px; height:20px; flex-shrink:0; margin-top:1px; }
+.alert-d { background:var(--crimson-light); color:#8B1A14; border:1px solid #F5BFBC; }
+.alert-i { background:#FFF8E8; color:#7A4500; border:1px solid #F5DFA0; }
+.alert strong { font-weight:700; }
+
+/* EMERGENCY */
+.emergency {
+  background:var(--navy);
+  border-top:3px solid var(--crimson);
+  padding:1.1rem 2rem;
+}
+.emg-inner {
+  max-width:1200px; margin:0 auto;
+  display:flex; align-items:center;
+  justify-content:center; gap:2.5rem; flex-wrap:wrap;
+}
+.emg-item { display:flex; align-items:center; gap:.6rem; }
+.emg-dot {
+  width:8px; height:8px; border-radius:50%;
+  background:var(--crimson);
+  animation:blink 2s ease-in-out infinite;
+}
+@keyframes blink { 0%,100%{opacity:1;} 50%{opacity:.3;} }
+.emg-label { font-size:.75rem; font-weight:500; color:#5A7A9A; }
+.emg-num   { font-size:1rem; font-weight:800; color:var(--white); letter-spacing:1px; }
+.emg-div   { width:1px; height:28px; background:#1E3A5F; }
+
+@media(max-width:640px){
+  .header-content { padding:1.5rem; }
+  .header-titles h1 { font-size:1.3rem; }
+  .header-meta { display:none; }
+  .nav-inner { padding:0 .5rem; overflow-x:auto; }
+  .nav-btn { padding:.9rem 1rem; font-size:.85rem; }
+  .content { padding:1.5rem 1rem 2rem; }
+  .steps-grid { grid-template-columns:1fr; }
+  .picon { width:48px; height:48px; }
+  .picon svg { width:24px; height:24px; }
+  .ptitle h2 { font-size:1.25rem; }
+  .emg-div { display:none; }
+  .emg-inner { gap:1rem; }
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <div class="header-accent"></div>
+    <div class="header-content">
+      <div class="header-logo">
+        <div class="cross-badge">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2v20M2 12h20" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="header-titles">
+          <h1>الإسعافات الأولية</h1>
+          <p>دليل الاستجابة السريعة للحالات الطارئة</p>
+        </div>
+      </div>
+      <div class="header-meta" style="display:flex;align-items:center;gap:1.2rem;">
+        <span class="meta-tag">توعية صحية</span>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:0.3rem;">
+          <svg width="52" height="52" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="48" fill="white"/>
+            <path d="M50,14 A36,36 0 1,1 49.99,14 Z M50,22 A28,28 0 1,0 50.01,22 Z" fill="#C0392B" transform="rotate(40,50,50)"/>
+          </svg>
+          <span style="font-family:'Tajawal',sans-serif;font-size:0.58rem;color:#7A96B8;font-weight:500;white-space:nowrap;text-align:center;">هيئة الهلال الأحمر السعودي</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="nav-bar">
+  <div class="nav-inner">
+    <button class="nav-btn active" data-c="crimson" onclick="show('fainting',this)">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="7" r="4"/><path d="M5.5 21c0-3 3-5.5 6.5-5.5s6.5 2.5 6.5 5.5"/>
+        <line x1="12" y1="11" x2="12" y2="15"/>
+      </svg>
+      الإغماء
+    </button>
+    <button class="nav-btn" data-c="amber" onclick="show('choking',this)">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 3c0 3-3 4-3 7a6 6 0 0012 0c0-3-3-4-3-7"/><line x1="9" y1="12" x2="15" y2="12"/>
+      </svg>
+      الاختناق
+    </button>
+    <button class="nav-btn" data-c="teal" onclick="show('burns',this)">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2c0 5.5-5 6-5 11a5 5 0 0010 0c0-5-5-5.5-5-11z"/>
+        <path d="M12 13c0 2-1.5 2.5-1.5 4a1.5 1.5 0 003 0c0-1.5-1.5-2-1.5-4z"/>
+      </svg>
+      الحروق
+    </button>
+    <button class="nav-btn" data-c="sage" onclick="show('fractures',this)">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5 4c0 2 2 2.5 2 4.5S5 11 5 13s2 2.5 2 5"/><path d="M19 4c0 2-2 2.5-2 4.5S19 11 19 13s-2 2.5-2 5"/>
+        <line x1="8.5" y1="12" x2="15.5" y2="12"/>
+      </svg>
+      الكسور
+    </button>
+  </div>
+</nav>
+
+<main class="content">
+
+  <!-- الإغماء -->
+  <section class="panel active" id="p-fainting">
+    <div class="panel-header">
+      <div class="picon bg-c str-c">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="7" r="4"/>
+          <path d="M5.5 21c0-3 3-5.5 6.5-5.5s6.5 2.5 6.5 5.5"/>
+          <line x1="12" y1="11" x2="12" y2="16"/>
+          <line x1="9.5" y1="14" x2="14.5" y2="14"/>
+        </svg>
+      </div>
+      <div class="ptitle">
+        <span class="tag tag-c">حالة طارئة</span>
+        <h2>الإغماء وفقدان الوعي</h2>
+        <p class="sub">فقدان مؤقت للوعي ناتج عن انخفاض تدفق الدم إلى الدماغ — تصرف بهدوء وسرعة</p>
+      </div>
+    </div>
+    <div class="steps-grid">
+      <div class="step"><div class="snum sn-c">١</div><div class="sbody"><h3>اطلب المساعدة فوراً</h3><p>نادِ على أشخاص مجاورين للمساعدة واتصل بالإسعاف على الرقم 911</p></div></div>
+      <div class="step"><div class="snum sn-c">٢</div><div class="sbody"><h3>ضعه في وضع أفقي</h3><p>أنزل المصاب بلطف على الأرض وضعه على ظهره بعيداً عن أي أجسام صلبة</p></div></div>
+      <div class="step"><div class="snum sn-c">٣</div><div class="sbody"><h3>ارفع القدمين</h3><p>ارفع الساقين 30 سم فوق مستوى الرأس لتحسين تدفق الدم نحو الدماغ</p></div></div>
+      <div class="step"><div class="snum sn-c">٤</div><div class="sbody"><h3>تحقق من التنفس</h3><p>راقب حركة الصدر؛ إذا توقف التنفس أو لم تجد نبضاً — ابدأ الإنعاش القلبي CPR فوراً</p></div></div>
+      <div class="step"><div class="snum sn-c">٥</div><div class="sbody"><h3>وضع الإفاقة الجانبي</h3><p>عند عودة التنفس، أدِره على جانبه بحذر لمنع الاختناق بأي إفرازات</p></div></div>
+      <div class="step"><div class="snum sn-c">٦</div><div class="sbody"><h3>أرخِ الملابس الضيقة</h3><p>افتح الياقة وأرخِ أي ضغط عند الرقبة والصدر، ووفر تهوية جيدة للمكان</p></div></div>
+    </div>
+    <div class="alert alert-d">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#C0392B" stroke-width="2" stroke-linecap="round">
+        <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+        <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+      </svg>
+      <span><strong>محظور:</strong> لا تعطِه ماءً أو طعاماً حال عدم الوعي. راجع الطبيب حتى لو أفاق سريعاً لتحديد السبب.</span>
+    </div>
+  </section>
+
+  <!-- الاختناق -->
+  <section class="panel" id="p-choking">
+    <div class="panel-header">
+      <div class="picon bg-a str-a">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 3c0 3-3 4-3 7a6 6 0 0012 0c0-3-3-4-3-7"/>
+          <line x1="12" y1="10" x2="12" y2="21"/>
+          <line x1="9" y1="16" x2="15" y2="16"/>
+        </svg>
+      </div>
+      <div class="ptitle">
+        <span class="tag tag-a">حرجة — ثوانٍ تفرق</span>
+        <h2>الاختناق وانسداد مجرى الهواء</h2>
+        <p class="sub">انسداد كلي أو جزئي لمجرى التنفس بجسم غريب — التدخل السريع ضروري</p>
+      </div>
+    </div>
+    <div class="steps-grid">
+      <div class="step"><div class="snum sn-a">١</div><div class="sbody"><h3>تأكد من الاختناق</h3><p>اسأل: هل تختنق؟ إذا لم يستطع التكلم أو التنفس وأشار إلى عنقه — تصرف فوراً</p></div></div>
+      <div class="step"><div class="snum sn-a">٢</div><div class="sbody"><h3>خمس ضربات على الظهر</h3><p>أمِل المصاب للأمام واضرب بين كتفيه خمس مرات بقوة بكعب راحة يدك</p></div></div>
+      <div class="step"><div class="snum sn-a">٣</div><div class="sbody"><h3>مناورة هيمليك</h3><p>قف خلفه وضع يديك المتشبكتين بين سرته وصدره، اضغط للداخل وللأعلى خمس مرات بقوة</p></div></div>
+      <div class="step"><div class="snum sn-a">٤</div><div class="sbody"><h3>كرر التسلسل</h3><p>بادِل بين خمس ضربات على الظهر وخمس ضغطات بطنية حتى يخرج الجسم الغريب</p></div></div>
+      <div class="step"><div class="snum sn-a">٥</div><div class="sbody"><h3>للرضع أقل من سنة</h3><p>ضعه وجهاً للأسفل على ذراعك ورأسه أخفض من جذعه، خمس ضربات خفيفة على الظهر ثم خمس ضغطات على الصدر</p></div></div>
+      <div class="step"><div class="snum sn-a">٦</div><div class="sbody"><h3>عند فقدان الوعي</h3><p>ضعه على الأرض بهدوء، اتصل بالإسعاف فوراً، وابدأ الإنعاش القلبي الرئوي CPR</p></div></div>
+    </div>
+    <div class="alert alert-i">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#B7540A" stroke-width="2" stroke-linecap="round">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="12" y1="8" x2="12" y2="12"/>
+        <line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+      <span><strong>نصيحة:</strong> إذا كنت وحدك وتختنق، اضغط بطنك بقوة على حافة كرسي صلب أو طرف طاولة للضغط على الحجاب الحاجز.</span>
+    </div>
+  </section>
+
+  <!-- الحروق -->
+  <section class="panel" id="p-burns">
+    <div class="panel-header">
+      <div class="picon bg-t str-t">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2c0 5.5-5 6-5 11a5 5 0 0010 0c0-5-5-5.5-5-11z"/>
+          <path d="M12 13c0 2-1.5 2.5-1.5 4a1.5 1.5 0 003 0c0-1.5-1.5-2-1.5-4z"/>
+        </svg>
+      </div>
+      <div class="ptitle">
+        <span class="tag tag-t">إسعاف حروق</span>
+        <h2>الحروق الحرارية والكيميائية</h2>
+        <p class="sub">الاستجابة الصحيحة في الدقائق الأولى تحدد مدى عمق الضرر وسرعة الشفاء</p>
+      </div>
+    </div>
+    <div class="steps-grid">
+      <div class="step"><div class="snum sn-t">١</div><div class="sbody"><h3>أبعد عن المصدر</h3><p>أبعد المصاب عن مصدر الحرارة أو المادة الكيميائية بأمان تام قبل أي تدخل</p></div></div>
+      <div class="step"><div class="snum sn-t">٢</div><div class="sbody"><h3>ماء بارد لعشرين دقيقة</h3><p>ضع المنطقة المحروقة تحت ماء بارد جارٍ مستمر لمدة عشرين دقيقة كاملة دون انقطاع</p></div></div>
+      <div class="step"><div class="snum sn-t">٣</div><div class="sbody"><h3>أزل المجوهرات مبكراً</h3><p>أزل الخواتم والأساور والساعات قبل بدء التورم لأن إزالتها لاحقاً ستصبح مؤلمة جداً</p></div></div>
+      <div class="step"><div class="snum sn-t">٤</div><div class="sbody"><h3>غطّ بضمادة معقمة</h3><p>استخدم ضمادة معقمة جافة أو غلاف بلاستيكي نظيف مؤقتاً، ولا تضغط على المنطقة</p></div></div>
+      <div class="step"><div class="snum sn-t">٥</div><div class="sbody"><h3>لا تفتح الفقاعات</h3><p>الفقاعات المائية طبقة حماية طبيعية للجلد الداخلي — فتحها يرفع خطر الإصابة بالعدوى</p></div></div>
+      <div class="step"><div class="snum sn-t">٦</div><div class="sbody"><h3>متى تتوجه للطوارئ؟</h3><p>حروق الوجه والأيدي والمفاصل، أو ما يتجاوز حجم راحة اليد — اذهب للطوارئ فوراً</p></div></div>
+    </div>
+    <div class="alert alert-d">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#C0392B" stroke-width="2" stroke-linecap="round">
+        <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+        <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+      </svg>
+      <span><strong>ممنوع منعاً باتاً:</strong> الزبدة، معجون الأسنان، الزيوت، والثلج المباشر — جميعها تزيد عمق الحرق وتعطل التبريد الصحيح.</span>
+    </div>
+  </section>
+
+  <!-- الكسور -->
+  <section class="panel" id="p-fractures">
+    <div class="panel-header">
+      <div class="picon bg-s str-s">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 4c0 2 2 2.5 2 4.5S5 11 5 13s2 2.5 2 5"/>
+          <path d="M19 4c0 2-2 2.5-2 4.5S19 11 19 13s-2 2.5-2 5"/>
+          <line x1="8.5" y1="12" x2="15.5" y2="12"/>
+        </svg>
+      </div>
+      <div class="ptitle">
+        <span class="tag tag-s">كسور وإصابات</span>
+        <h2>الكسور والإصابات العظمية</h2>
+        <p class="sub">التثبيت الصحيح يمنع تفاقم الأذى — لا تحاول تعديل أي عظم بأي حال</p>
+      </div>
+    </div>
+    <div class="steps-grid">
+      <div class="step"><div class="snum sn-s">١</div><div class="sbody"><h3>لا تحرك المصاب</h3><p>اطلب منه عدم تحريك المنطقة المصابة، وأبقِه ثابتاً في مكانه حتى تصل المساعدة</p></div></div>
+      <div class="step"><div class="snum sn-s">٢</div><div class="sbody"><h3>أوقف النزيف إن وجد</h3><p>في الكسر المفتوح اضغط بلطف بقطعة قماش معقمة أو نظيفة على الجرح دون تحريك العظم</p></div></div>
+      <div class="step"><div class="snum sn-s">٣</div><div class="sbody"><h3>ثبّت بجبيرة مؤقتة</h3><p>استخدم عصا أو مجلة أو أي جسم صلب ملفوف بقماش ناعم لتثبيت العظم في وضعه الحالي</p></div></div>
+      <div class="step"><div class="snum sn-s">٤</div><div class="sbody"><h3>ضع ثلجاً مغلفاً</h3><p>ضع كيس ثلج مغلفاً بقماش لمدة عشرين دقيقة لتقليل التورم — لا تضعه مباشرة على الجلد</p></div></div>
+      <div class="step"><div class="snum sn-s">٥</div><div class="sbody"><h3>ارفع الطرف المصاب</h3><p>إن أمكن ودون ألم إضافي، ارفع الطرف المكسور فوق مستوى القلب لتقليل التورم</p></div></div>
+      <div class="step"><div class="snum sn-s">٦</div><div class="sbody"><h3>انتقل لأقرب طوارئ</h3><p>لا تحاول تعديل أو إعادة توجيه العظم — هذا من اختصاص الطبيب في المستشفى حصراً</p></div></div>
+    </div>
+    <div class="alert alert-d">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#C0392B" stroke-width="2" stroke-linecap="round">
+        <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+        <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+      </svg>
+      <span><strong>تحذير:</strong> عند الاشتباه بكسر في العمود الفقري أو الرقبة — لا تحرك المصاب إطلاقاً حتى وصول فريق الإسعاف المتخصص.</span>
+    </div>
+  </section>
+
+</main>
+
+<footer class="emergency">
+  <div class="emg-inner">
+    <div class="emg-item">
+      <div class="emg-dot"></div>
+      <span class="emg-label">الإسعاف السعودي</span>
+      <span class="emg-num">911</span>
+    </div>
+    <div class="emg-div"></div>
+    <div class="emg-item">
+      <div class="emg-dot"></div>
+      <span class="emg-label">الهلال الأحمر</span>
+      <span class="emg-num">920</span>
+    </div>
+    <div class="emg-div"></div>
+    <div class="emg-item">
+      <div class="emg-dot"></div>
+      <span class="emg-label">مركز السموم</span>
+      <span class="emg-num">8004300000</span>
+    </div>
+  </div>
+  <div style="text-align:center; margin-top:1rem; padding-top:1rem; border-top:1px solid #1E3A5F;">
+    <span style="font-family:'Tajawal',sans-serif; font-size:0.8rem; color:#4A7AAF; font-weight:600; letter-spacing:0.5px;">أنهال محمد</span>
+  </div>
+</footer>
+
+<script>
+  function show(id, btn) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('p-' + id).classList.add('active');
+    btn.classList.add('active');
+    document.querySelector('.content').scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+</script>
+</body>
+</html>
